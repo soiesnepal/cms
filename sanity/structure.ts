@@ -1,35 +1,24 @@
 import type { StructureBuilder } from "sanity/structure";
-
-// https://www.sanity.io/docs/structure-builder-cheat-sheet
 import {
   Bell,
   Users,
   FolderKanban,
   UserCircle,
   BookOpen,
-  Tablet,
-  BadgeAlert,
   Building2,
   CalendarDays,
-  AlertCircle,
   CheckCircle2,
   XCircle,
   GraduationCap,
+  AlertCircle,
+  BadgeAlert,
 } from "lucide-react";
 
 export const structure = (S: StructureBuilder) =>
   S.list()
     .title("Content")
     .items([
-      // Hero Section
-      S.listItem()
-        .title("Hero")
-        .icon(Tablet)
-        .child(
-          S.documentList().title("Hero Section").filter('_type == "hero"')
-        ),
-
-      // Notices Section
+      // Notices
       S.listItem()
         .title("Notices")
         .icon(Bell)
@@ -37,16 +26,14 @@ export const structure = (S: StructureBuilder) =>
           S.list()
             .title("Notices")
             .items([
-              // All Notices
               S.listItem()
                 .title("All Notices")
-                .icon(Tablet)
+                .icon(Bell)
                 .child(
                   S.documentList()
                     .title("All Notices")
                     .filter('_type == "notice"')
                 ),
-              // Filter by Category
               S.listItem()
                 .title("By Category")
                 .icon(BadgeAlert)
@@ -92,7 +79,6 @@ export const structure = (S: StructureBuilder) =>
                         ),
                     ])
                 ),
-              // Filter by Status
               S.listItem()
                 .title("By Status")
                 .child(
@@ -120,7 +106,7 @@ export const structure = (S: StructureBuilder) =>
             ])
         ),
 
-      // Alumni Section
+      // Alumni
       S.listItem()
         .title("Alumni")
         .icon(Users)
@@ -147,13 +133,13 @@ export const structure = (S: StructureBuilder) =>
             ])
         ),
 
-      // Projects Section
+      // Projects
       S.listItem()
         .title("Projects")
         .icon(FolderKanban)
         .child(S.documentList().title("Projects").filter('_type == "project"')),
 
-      // Team Section
+      // Team
       S.listItem()
         .title("Team")
         .icon(UserCircle)
@@ -161,22 +147,19 @@ export const structure = (S: StructureBuilder) =>
           S.documentList().title("Team Members").filter('_type == "team"')
         ),
 
-      // Journal Section
+      // Journals
       S.listItem()
         .title("Journals")
         .icon(BookOpen)
         .child(S.documentList().title("Journals").filter('_type == "journal"')),
 
-      // Magazine Section
+      // Magazines
       S.listItem()
         .title("Magazines")
         .icon(BookOpen)
         .child(
           S.documentList().title("Magazines").filter('_type == "magazine"')
         ),
-
-      // Divider
-      S.divider(),
     ]);
 
 export default structure;
