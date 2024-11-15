@@ -133,11 +133,11 @@ export const structure = (S: StructureBuilder) =>
             ])
         ),
 
-      // Projects
+      // Events
       S.listItem()
-        .title("Projects")
+        .title("Events")
         .icon(FolderKanban)
-        .child(S.documentList().title("Projects").filter('_type == "project"')),
+        .child(S.documentList().title("Events").filter('_type == "event"')),
 
       // Team
       S.listItem()

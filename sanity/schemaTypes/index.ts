@@ -3,9 +3,9 @@ import { magazine } from "./schema/magazine";
 import { alumni } from "./schema/alumni";
 import { journal } from "./schema/journal";
 import { notice } from "./schema/notice";
-import { project } from "./schema/project";
+import { event } from "./schema/event";
 import { team } from "./schema/team";
 
 export const schema: { types: SchemaTypeDefinition[] } = {
-  types: [notice, alumni, project, team, journal, magazine],
+  types: [notice, alumni, event, team, journal, magazine],
 };
