@@ -28,7 +28,10 @@
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+<<<<<<< HEAD
 .pnpm-debug.log*
+=======
+>>>>>>> d83fe136f157c2d4a2a11c9768d6b3470d4056be
 
 # env files (can opt-in for committing if needed)
 .env*
