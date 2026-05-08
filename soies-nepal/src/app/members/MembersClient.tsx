@@ -31,9 +31,9 @@ export default function MembersClient({ batches }: { batches: BatchGroup[] }) {
       .map((batch) => {
         const matchedMembers = batch.members?.filter(
           (m) =>
-            m.name.toLowerCase().includes(query) ||
-            formatRollNumber(batch.batch, m.rollNumber).toLowerCase().includes(query) ||
-            batch.batch.includes(query)
+            (m.name || "").toLowerCase().includes(query) ||
+            formatRollNumber(String(batch.batch || ""), m.rollNumber || 0).toLowerCase().includes(query) ||
+            String(batch.batch || "").includes(query)
         );
         if (matchedMembers && matchedMembers.length > 0) {
           return { ...batch, members: matchedMembers };

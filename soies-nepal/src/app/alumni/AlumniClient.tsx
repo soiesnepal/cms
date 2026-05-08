@@ -94,9 +94,9 @@ export default function AlumniClient({ alumni }: { alumni: Alumni[] }) {
     const term = search.toLowerCase();
     let result = alumni.filter((a) => {
       const matchesSearch =
-        a.name.toLowerCase().includes(term) ||
+        (a.name || "").toLowerCase().includes(term) ||
         (a.currentPosition || "").toLowerCase().includes(term) ||
-        String(a.Batch).includes(term);
+        String(a.Batch || "").includes(term);
       const matchesBatch = selectedBatch ? a.Batch === selectedBatch : true;
       return matchesSearch && matchesBatch;
     });

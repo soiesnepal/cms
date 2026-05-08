@@ -75,6 +75,7 @@ export const alumniQuery = `*[_type == "alumni"] | order(Batch desc){
 export const alumniBatchQuery = `*[_type == "alumniBatch"] | order(batchYear desc){
   _id,
   batchYear,
+  namesList,
   members[]{
     name,
     currentPosition,
@@ -115,6 +116,7 @@ export const latestNoticeQuery = `*[_type == "notice" && status == "active" && s
 export const generalMembersQuery = `*[_type == "generalMembers"] | order(batch desc){
   _id,
   batch,
+  membersList,
   members[]{
     name,
     rollNumber

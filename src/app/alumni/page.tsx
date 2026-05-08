@@ -2,7 +2,7 @@ import { client } from "@/lib/sanity";
 import { alumniQuery, alumniBatchQuery } from "@/lib/queries";
 import AlumniClient from "./AlumniClient";
 
-export const revalidate = 0; // Changed to 0 so it fetches fresh data immediately
+export const revalidate = 60;
 
 const defaultAlumni = [
   { _id: "1", name: "Abiral Raj Baniya Chhetri", currentPosition: "Revenue Management Officer, Yeti Airlines", Batch: 2062 },
@@ -18,8 +18,8 @@ const defaultAlumni = [
 async function getAlumni() {
   try {
     const [individual, batches] = await Promise.all([
-      client.fetch(alumniQuery, {}, { next: { revalidate: 0 }, cache: 'no-store' }),
-      client.fetch(alumniBatchQuery, {}, { next: { revalidate: 0 }, cache: 'no-store' }),
+      client.fetch(alumniQuery),
+      client.fetch(alumniBatchQuery),
     ]);
 
     console.log("Fetched batches:", batches); // Debugging

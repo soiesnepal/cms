@@ -19,7 +19,7 @@ export const eventsQuery = `*[_type == "event"] | order(eventDate desc){
   "images": images[].asset->url
 }`;
 
-export const noticesQuery = `*[_type == "notice"] | order(_createdAt desc){
+export const noticesQuery = `*[_type == "notice" && status == "active"] | order(_createdAt desc){
   _id,
   title,
   description,
@@ -42,7 +42,7 @@ export const homeEventsQuery = `*[_type == "event"] | order(eventDate desc)[0...
   "images": images[].asset->url
 }`;
 
-export const homeNoticesQuery = `*[_type == "notice"] | order(_createdAt desc)[0...5]{
+export const homeNoticesQuery = `*[_type == "notice" && status == "active"] | order(_createdAt desc)[0...5]{
   _id,
   title,
   description,

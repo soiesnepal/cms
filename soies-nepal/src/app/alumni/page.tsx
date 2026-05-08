@@ -24,15 +24,29 @@ async function getAlumni() {
 
     // Merge batch-imported alumni into the main list
     const batchAlumni = (batches || []).flatMap(
-      (batch: { _id: string; batchYear: number; members: { name: string; currentPosition?: string; description?: string; photoUrl?: string }[] }) =>
-        (batch.members || []).map((m, i) => ({
-          _id: `${batch._id}-${i}`,
-          name: m.name,
-          currentPosition: m.currentPosition || "",
-          description: m.description || "",
-          Batch: batch.batchYear,
-          photoUrl: m.photoUrl || "",
-        }))
+      (batch: { _id: string; batchYear: number; namesList?: string; members?: { name: string; currentPosition?: string; description?: string; photoUrl?: string }[] }) => {
+        if (batch.namesList) {
+          const names = batch.namesList.split(/[\n,]+/).map((n: string) => n.trim()).filter((n: string) => n.length > 0);
+          return names.map((name, i) => ({
+            _id: `${batch._id}-${i}`,
+            name: name,
+            currentPosition: "",
+            description: "",
+            Batch: batch.batchYear,
+            photoUrl: "",
+          }));
+        } else if (batch.members) {
+          return batch.members.map((m, i) => ({
+            _id: `${batch._id}-${i}`,
+            name: m.name || "",
+            currentPosition: m.currentPosition || "",
+            description: m.description || "",
+            Batch: batch.batchYear,
+            photoUrl: m.photoUrl || "",
+          }));
+        }
+        return [];
+      }
     );
 
     const all = [...(individual || []), ...batchAlumni];

@@ -4,7 +4,7 @@ export const generalMembers = defineType({
   name: "generalMembers",
   title: "General Members",
   type: "document",
-  description: "Batch-wise list of general members with roll numbers.",
+  description: "Batch-wise list of general members. Bulk import by pasting.",
   fields: [
     defineField({
       name: "batch",
@@ -14,9 +14,9 @@ export const generalMembers = defineType({
     }),
     defineField({
       name: "membersList",
-      title: "Members List",
-      description: "Paste all members here. Format: Name - RollNumber (e.g. Aayush Poudel - 6, Abhiyan - 7). Separated by commas or new lines.",
+      title: "Members Names and Roll Numbers",
       type: "text",
+      description: "Paste members here separated by newlines. Format: Name - RollNumber (e.g. Aayush Poudel - 6)",
       validation: (Rule) => Rule.required(),
     }),
   ],
