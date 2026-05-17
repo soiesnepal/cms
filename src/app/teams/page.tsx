@@ -1,5 +1,5 @@
 import { client } from "@/lib/sanity";
-import { teamQuery } from "@/lib/queries";
+import { teamQuery, internsQuery } from "@/lib/queries";
 import TeamsClient from "./TeamsClient";
 
 export const revalidate = 60;
@@ -17,16 +17,32 @@ const defaultTeam = [
   { _id: "10", name: "Bhumi Kumari Kurmi", position: "Creative Head", rank: 10, committee: "18th Executive Committee", photoUrl: null },
 ];
 
-async function getTeam() {
+async function getTeamsData() {
   try {
-    const data = await client.fetch(teamQuery);
-    return data?.length ? data : defaultTeam;
+    const [teamData, internsData] = await Promise.all([
+      client.fetch(teamQuery),
+      client.fetch(internsQuery),
+    ]);
+
+    const parsedInterns = (internsData || []).map((group: any) => {
+      const names = group.internsList ? group.internsList.split(/[\n,]+/).map((n: string) => n.trim()).filter((n: string) => n.length > 0) : [];
+      return {
+        _id: group._id,
+        batchTitle: group.batchTitle,
+        interns: names,
+      };
+    });
+
+    return {
+      team: teamData?.length ? teamData : defaultTeam,
+      interns: parsedInterns,
+    };
   } catch {
-    return defaultTeam;
+    return { team: defaultTeam, interns: [] };
   }
 }
 
 export default async function TeamsPage() {
-  const team = await getTeam();
-  return <TeamsClient team={team} />;
+  const { team, interns } = await getTeamsData();
+  return <TeamsClient team={team} interns={interns} />;
 }

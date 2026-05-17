@@ -1,4 +1,3 @@
-"use client";
 
 // Removed framer-motion for performance
 import Image from "next/image";

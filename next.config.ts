@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
@@ -17,14 +16,3 @@ const nextConfig: NextConfig = {
 };
 
 export default nextConfig;
-=======
-import type { NextConfig } from "next";
-
-const nextConfig: NextConfig = {
-  images: {
-    domains: ["cdn.sanity.io"],
-  },
-};
-
-export default nextConfig;
->>>>>>> d83fe136f157c2d4a2a11c9768d6b3470d4056be

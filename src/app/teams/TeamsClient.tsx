@@ -132,7 +132,13 @@ function ProfilePopup({
   );
 }
 
-export default function TeamsClient({ team }: { team: TeamMember[] }) {
+interface InternGroup {
+  _id: string;
+  batchTitle: string;
+  interns: string[];
+}
+
+export default function TeamsClient({ team, interns }: { team: TeamMember[], interns?: InternGroup[] }) {
   const [selectedMember, setSelectedMember] = useState<TeamMember | null>(null);
 
   // Group members by committee
@@ -152,6 +158,9 @@ export default function TeamsClient({ team }: { team: TeamMember[] }) {
 
   const [activeCommittee, setActiveCommittee] = useState(committees[0] || "18th Executive Committee");
   const members = committeeMap.get(activeCommittee) || [];
+
+  // Match interns with active committee
+  const currentInterns = interns?.find(ig => ig.batchTitle === activeCommittee)?.interns || [];
 
   // Use rank to determine rows
   const sorted = [...members].sort((a, b) => (a.rank ?? 99) - (b.rank ?? 99));
@@ -286,6 +295,7 @@ export default function TeamsClient({ team }: { team: TeamMember[] }) {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-50px" }}
             transition={{ duration: 0.6 }}
+            className="mb-14"
           >
             <div className="flex flex-wrap justify-center gap-4 sm:gap-5 max-w-4xl mx-auto">
               {row3.map((member, i) => (
@@ -298,6 +308,38 @@ export default function TeamsClient({ team }: { team: TeamMember[] }) {
                   className="w-[calc(50%-0.5rem)] sm:w-[calc(33.333%-0.875rem)] lg:w-[calc(25%-0.9375rem)]"
                 >
                   <MemberCard member={member} onClick={() => setSelectedMember(member)} />
+                </motion.div>
+              ))}
+            </div>
+          </motion.div>
+        )}
+
+        {/* Interns Section */}
+        {currentInterns.length > 0 && (
+          <motion.div
+            initial={{ opacity: 0, y: 40 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-50px" }}
+            transition={{ duration: 0.6 }}
+          >
+            <div className="text-center mb-8">
+              <h2 className="text-2xl sm:text-3xl font-bold text-slate-900 dark:text-white">
+                <span className="gradient-text">Interns</span>
+              </h2>
+            </div>
+            <div className="flex flex-wrap justify-center gap-4 max-w-4xl mx-auto">
+              {currentInterns.map((internName, i) => (
+                <motion.div
+                  key={i}
+                  initial={{ opacity: 0, scale: 0.9 }}
+                  whileInView={{ opacity: 1, scale: 1 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.3, delay: (i % 7) * 0.05 }}
+                  className="bg-slate-50 dark:bg-navy-800/50 border border-slate-200 dark:border-navy-700 px-6 py-3 rounded-full shadow-sm text-center hover:border-gold-500/40 transition-colors"
+                >
+                  <span className="text-slate-700 dark:text-navy-100 font-medium text-sm sm:text-base">
+                    {internName}
+                  </span>
                 </motion.div>
               ))}
             </div>

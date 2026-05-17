@@ -62,6 +62,12 @@ export const teamQuery = `*[_type == "team"] | order(rank asc){
   "photoUrl": photo.asset->url
 }`;
 
+export const internsQuery = `*[_type == "interns"]{
+  _id,
+  batchTitle,
+  internsList
+}`;
+
 export const alumniQuery = `*[_type == "alumni"] | order(Batch desc){
   _id,
   name,
